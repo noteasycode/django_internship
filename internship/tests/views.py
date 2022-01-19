@@ -1,10 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 
 
-def index(request):
-    return HttpResponse('Главная страница')
-
-
 def redirect(request):
     return HttpResponseRedirect('https://onix.kr.ua/')
 
