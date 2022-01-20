@@ -6,6 +6,31 @@
 </title>
 
 {% block content %}
+<body>
+ <br>
+    <div class="container-fluid">
+     {% if countries %}
+        <table class="table" id="table_db" >
+           <thead>
+             <tr>
+               <th scope="col">№</th>
+               <th scope="col">Country</th>
+               </tr>
+           </thead>
+            <tbody >
+             {% for country in countries %}
+              <tr>
+                 <th scope="row"> {{ forloop.counter }}</th>
+                 <td > {{ country }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    </div>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+</body>
 {% endblock %}

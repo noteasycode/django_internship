@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from database import CITY_DATABASE
+from .database import CITY_DATABASE
 
 
 def index(request):
@@ -8,4 +8,5 @@ def index(request):
 
 
 def country_list(request):
-    return render(request, 'country_list.html')
+    countries = [country for country in CITY_DATABASE.keys()]
+    return render(request, 'country_list.html', {'countries': countries})
