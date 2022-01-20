@@ -10,7 +10,7 @@
  <br>
     <div class="container-fluid">
      {% if cities %}
-        <table class="table" id="table_db" >
+        <table class="table" id="city-table" >
            <thead>
              <tr>
                <th scope="col">№</th>
@@ -30,9 +30,16 @@
         </table>
     {% endif %}
     </div>
+{% block js %}
+ <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript">
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
-
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+         $(document).ready(function() {
+            $('#city-table').DataTable();
+        });
+    </script>
+{% endblock js %}
 </body>
 {% endblock %}
