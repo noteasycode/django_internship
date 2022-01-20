@@ -9,19 +9,21 @@
 <body>
  <br>
     <div class="container-fluid">
-     {% if countries %}
+     {% if cities %}
         <table class="table" id="table_db" >
            <thead>
              <tr>
                <th scope="col">№</th>
-               <th scope="col">Country</th>
+               <th scope="col">City</th>
+               <th scope="col">Population</th>
                </tr>
            </thead>
             <tbody >
-             {% for country in countries %}
+             {% for city in cities %}
               <tr>
                  <th scope="row"> {{ forloop.counter }}</th>
-                  <td ><a class="nav-link" href="{% url 'cities:city_list' country %}">{{ country }}</a></td>
+                  <td >{{ city.0 }}</td>
+                  <td >{{ city.1 }}</td>
               </tr>
             {% endfor %}
             </tbody>
