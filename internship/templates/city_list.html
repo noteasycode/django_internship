@@ -8,9 +8,9 @@
 {% block content %}
 <body>
  <br>
-    <div class="container-fluid">
+    <div class="data-table-container">
      {% if cities %}
-        <table class="table" id="city-table" >
+        <table class="table table-hover table-striped table-bordered data-table" id="city-table" >
            <thead>
              <tr>
                <th scope="col">№</th>
@@ -23,8 +23,11 @@
               <tr>
                  <th scope="row"> {{ forloop.counter }}</th>
                   <td >{{ city.0 }}</td>
-                  <td >{{ city.1 }}</td>
-              </tr>
+                  {% if city.1 < 500000 %} <td style="color:#DC143C"> {{ city.1 }} </td>
+                  {% elif city.1 < 1000000 %} <td style="color:#000080"> {{ city.1 }} </td>
+                  {% else %} <td style="color:#3CB371"> {{ city.1 }} </td> {% endif %}
+             </tr>
+
             {% endfor %}
             </tbody>
         </table>
@@ -35,10 +38,9 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript">
-
-         $(document).ready(function() {
+        $(document).ready(function() {
             $('#city-table').DataTable();
-        } );
+        });
     </script>
 {% endblock js %}
 </body>
