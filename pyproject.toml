@@ -8,6 +8,8 @@ authors = ["Denis <denis.kr.pr@gmail.com>"]
 python = "^3.9"
 Django = "^3.2.11"
 psycopg2 = "^2.9.3"
+Pillow = "^9.0.0"
+sorl-thumbnail = "^12.7.0"
 
 [tool.poetry.dev-dependencies]
 
