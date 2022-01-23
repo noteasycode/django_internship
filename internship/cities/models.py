@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Country(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=255)
     country_code = models.CharField(max_length=3)
     population = models.IntegerField()
     flag = models.ImageField(
@@ -20,7 +20,7 @@ class Country(models.Model):
 
 
 class City(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     country = models.ForeignKey(
         Country,

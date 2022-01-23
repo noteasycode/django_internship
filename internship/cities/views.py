@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 
-from .database import CITY_DATABASE
+from .models import Country, City
 
 
 def index(request):
@@ -8,10 +8,11 @@ def index(request):
 
 
 def country_list(request):
-    countries = [country for country in CITY_DATABASE.keys()]
+    countries = get_list_or_404(Country)
     return render(request, 'country_list.html', {'countries': countries})
 
 
 def city_list(request, country):
-    cities = CITY_DATABASE.get(country)
+    country = get_object_or_404(Country, name=country)
+    cities = City.objects.filter(country=country)
     return render(request, 'city_list.html', {'cities': cities})
