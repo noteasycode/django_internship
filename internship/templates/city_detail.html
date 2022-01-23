@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+<title>
+  {% block title %}
+    Information about {{ city.name }}
+  {% endblock %}
+</title>
+{% block content %}
+<body>
+ <br>
+    <div class="container">
+        <p>{{ city.description }}</p>
+    </div>
+</body>
+{% endblock %}

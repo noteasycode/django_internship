@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 <title>
   {% block title %}
     The list of cities
@@ -8,12 +9,15 @@
 {% block content %}
 <body>
  <br>
-    <div class="data-table-container">
+    <div class="container">
+    <div class="row">
+    <div class="col-9">
      {% if cities %}
-        <table class="table table-hover table-striped table-bordered data-table" id="city-table" >
+        <table class="table table-image display cell-border" id="city-table" >
            <thead>
              <tr>
                <th scope="col">№</th>
+               <th scope="col">Emblem</th>
                <th scope="col">City</th>
                <th scope="col">Population</th>
                </tr>
@@ -22,7 +26,10 @@
              {% for city in cities %}
               <tr>
                  <th scope="row"> {{ forloop.counter }}</th>
-                  <td >{{ city.name }}</td>
+                  <td class="w-10">{% thumbnail city.emblem "40x20" crop="center" upscale=True as im %}
+                            <img class="img-fluid img-thumbnail" src="{{ im.url }}">
+                        {% endthumbnail %}</td>
+                   <td ><a class="nav-link" href="{% url 'cities:city_detail' city.pk %}">{{ city.name }}</a></td>
                   {% if city.population < 500000 %} <td style="color:#DC143C"> {{ city.population }} </td>
                   {% elif city.population < 1000000 %} <td style="color:#000080"> {{ city.population }} </td>
                   {% else %} <td style="color:#3CB371"> {{ city.population }} </td> {% endif %}
@@ -32,14 +39,21 @@
             </tbody>
         </table>
     {% endif %}
-    </div>
+    </div></div></div>
 {% block js %}
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#city-table').DataTable();
+            $('#city-table').DataTable({
+               columnDefs: [
+                    {
+                        targets: "_all",
+                        className: 'dt-center'
+                    }
+                ]
+            } );
         });
     </script>
 {% endblock js %}

@@ -14,5 +14,10 @@ def country_list(request):
 
 def city_list(request, country):
     country = get_object_or_404(Country, name=country)
-    cities = City.objects.filter(country=country)
+    cities = country.cities.all()
     return render(request, 'city_list.html', {'cities': cities})
+
+
+def city_detail(request, pk):
+    city = get_object_or_404(City, pk=pk)
+    return render(request, 'city_detail.html', {'city': city})
