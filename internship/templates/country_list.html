@@ -27,7 +27,7 @@
              {% for country in countries %}
               <tr>
                  <th scope="row"> {{ forloop.counter }}</th>
-                  <td class="w-10">{% thumbnail country.flag "40x20" crop="center" upscale=True as im %}
+                  <td class="w-10">{% thumbnail country.flag "50x25" crop="center" upscale=True as im %}
                             <img class="img-fluid img-thumbnail" src="{{ im.url }}">
                         {% endthumbnail %}</td>
                   <td ><a class="nav-link" href="{% url 'cities:city_list' country.name %}">{{ country }}</a></td>
