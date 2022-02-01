@@ -11,3 +11,8 @@ def add_image(value):
     else:
         result = '<img src="/media/icons/icon-no.svg">'
     return mark_safe(result)
+
+
+@register.filter
+def addclass(field, css):
+    return field.as_widget(attrs={"class": css})

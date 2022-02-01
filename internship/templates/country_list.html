@@ -11,7 +11,12 @@
  <br>
     <div class="container">
     <div class="row">
-    <div class="col-9">
+        <div class="col-9">
+    <a class="btn btn-sm btn-info" href="{% url 'cities:add_country' %}" role="button">Add country</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
      {% if countries %}
         <table class="table table-image display cell-border" id="country-table">
            <thead>
