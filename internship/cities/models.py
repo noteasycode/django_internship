@@ -1,4 +1,5 @@
 from django.db import models
+from pytils.translit import slugify
 
 
 class Country(models.Model):
@@ -42,3 +43,8 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)[:50]
+        super().save(*args, **kwargs)

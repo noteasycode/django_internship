@@ -20,6 +20,7 @@
                <th scope="col">Emblem</th>
                <th scope="col">City</th>
                <th scope="col">Population</th>
+               <th scope="col">With a McDonald's outlet</th>
                </tr>
            </thead>
             <tbody >
@@ -33,8 +34,8 @@
                   {% if city.population < 500000 %} <td style="color:#DC143C"> {{ city.population }} </td>
                   {% elif city.population < 1000000 %} <td style="color:#000080"> {{ city.population }} </td>
                   {% else %} <td style="color:#3CB371"> {{ city.population }} </td> {% endif %}
+                  <td >{{ city.with_mcdonalds}}</td>
              </tr>
-
             {% endfor %}
             </tbody>
         </table>
