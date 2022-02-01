@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+{% load user_filters %}
 {% load thumbnail %}
+
 <title>
   {% block title %}
     The list of cities
@@ -34,7 +36,7 @@
                   {% if city.population < 500000 %} <td style="color:#DC143C"> {{ city.population }} </td>
                   {% elif city.population < 1000000 %} <td style="color:#000080"> {{ city.population }} </td>
                   {% else %} <td style="color:#3CB371"> {{ city.population }} </td> {% endif %}
-                  <td >{{ city.with_mcdonalds}}</td>
+                  <td >{{ city.with_mcdonalds|add_image }}</td>
              </tr>
             {% endfor %}
             </tbody>
