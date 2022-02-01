@@ -30,7 +30,7 @@
                   <td class="w-10">{% thumbnail country.flag "50x25" crop="center" upscale=True as im %}
                             <img class="img-fluid img-thumbnail" src="{{ im.url }}">
                         {% endthumbnail %}</td>
-                  <td ><a class="nav-link" href="{% url 'cities:city_list' country.name %}">{{ country }}</a></td>
+                  <td ><a class="nav-link" href="{% url 'cities:city_list' country.name %}">{{ country|upper }}</a></td>
                   <td >{{ country.population }}</td>
                    <td >{{ country.country_code }}</td>
               </tr>
