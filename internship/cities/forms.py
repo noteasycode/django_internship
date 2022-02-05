@@ -29,5 +29,8 @@ class CityForm(forms.ModelForm):
         }
         widgets = {
                     'description': forms.Textarea(attrs={"class": "form-control"}),
-                    'with_mcdonalds': forms.CheckboxInput(attrs={"class": "form-check-input", "type": "checkbox"}),
+                    'with_mcdonalds': forms.CheckboxInput(attrs={
+                        "class": "form-check-input",
+                        "type": "checkbox"}
+                    ),
                 }
