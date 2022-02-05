@@ -11,4 +11,5 @@ urlpatterns = [
     path('city_list/<country>/', views.city_list, name='city_list'),
     path('city_detail/<int:pk>/', views.city_detail, name='city_detail'),
     path('add_country/', views.add_country, name='add_country'),
+    path('edit_country/<int:country_id>', views.edit_country, name='edit_country'),
 ]

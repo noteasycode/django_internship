@@ -39,3 +39,26 @@ def add_country(request):
         'new_country.html',
         {'form': form, 'header': header, 'action': action}
     )
+
+
+def edit_country(request, country_id):
+    header = 'Edit'
+    action = 'Save'
+    country = get_object_or_404(Country, pk=country_id)
+    if request.user.is_anonymous:
+        return redirect('cities:country_list')
+    form = CountryForm(
+        request.POST or None,
+        files=request.FILES or None,
+        instance=country
+    )
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('cities:country_list')
+
+    context = {
+        'form': form, 'country': country, 'header': header, "action": action,
+        "country_id": country_id,
+    }
+    return render(request, 'new_country.html', context)
