@@ -18,7 +18,8 @@ def country_list(request):
 def city_list(request, country):
     country = get_object_or_404(Country, name=country)
     cities = country.cities.all()
-    return render(request, 'city_list.html', {'cities': cities})
+    context = {'cities': cities, 'country': country}
+    return render(request, 'city_list.html', context)
 
 
 def city_detail(request, pk):
@@ -36,7 +37,7 @@ def add_country(request):
         return redirect('cities:country_list')
     return render(
         request,
-        'new_country.html',
+        'new.html',
         {'form': form, 'header': header, 'action': action}
     )
 
@@ -58,7 +59,47 @@ def edit_country(request, country_id):
             return redirect('cities:country_list')
 
     context = {
-        'form': form, 'country': country, 'header': header, "action": action,
-        "country_id": country_id,
+        'form': form, 'country': country, 'header': header, 'action': action,
+        'country_id': country_id,
     }
-    return render(request, 'new_country.html', context)
+    return render(request, 'new.html', context)
+
+
+def add_city(request, country):
+    header = 'Add City'
+    action = 'Add'
+    country = get_object_or_404(Country, name=country)
+    form = CityForm(request.POST or None, files=request.FILES or None)
+    if form.is_valid():
+        new_city = form.save(commit=False)
+        new_city.country = country
+        new_city.save()
+        return redirect('cities:city_list', country=country.name)
+    return render(
+        request,
+        'new.html',
+        {'form': form, 'header': header, 'action': action}
+    )
+
+
+def edit_city(request, city_id):
+    header = 'Edit'
+    action = 'Save'
+    city = get_object_or_404(City, pk=city_id)
+    if request.user.is_anonymous:
+        return redirect('cities:city_list')
+    form = CityForm(
+        request.POST or None,
+        files=request.FILES or None,
+        instance=city
+    )
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('cities:city_list', country=city.country)
+
+    context = {
+        'form': form, 'city': city, 'header': header, 'action': action,
+        'city_id': city_id,
+    }
+    return render(request, 'new.html', context)

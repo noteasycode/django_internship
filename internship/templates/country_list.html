@@ -38,8 +38,8 @@
                         {% endthumbnail %}</td>
                   <td ><a class="nav-link" href="{% url 'cities:city_list' country.name %}">{{ country|upper }}</a></td>
                   <td >{{ country.population }}</td>
-                   <td >{{ country.country_code }}</td>
-                    <td ><a class="btn btn-sm btn-info" href="{% url 'cities:edit_country' country.id %}" role="button">Edit country</a></td>
+                  <td >{{ country.country_code }}</td>
+                  <td ><a class="btn btn-sm btn-info" href="{% url 'cities:edit_country' country.id %}" role="button">Edit country</a></td>
               </tr>
             {% endfor %}
             </tbody>

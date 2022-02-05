@@ -13,6 +13,11 @@
  <br>
     <div class="container">
     <div class="row">
+        <div class="col-9">
+            <a class="btn btn-sm btn-info" href="{% url 'cities:add_city' country %}" role="button">Add City</a>
+        </div>
+    </div>
+    <div class="row">
     <div class="col-9">
      {% if cities %}
         <table class="table table-image display cell-border" id="city-table" >
@@ -23,6 +28,7 @@
                <th scope="col">City</th>
                <th scope="col">Population</th>
                <th scope="col">With a McDonald's outlet</th>
+               <th scope="col">Actions</th>
                </tr>
            </thead>
             <tbody >
@@ -37,6 +43,7 @@
                   {% elif city.population < 1000000 %} <td style="color:#000080"> {{ city.population }} </td>
                   {% else %} <td style="color:#3CB371"> {{ city.population }} </td> {% endif %}
                   <td >{{ city.with_mcdonalds|add_image }}</td>
+                  <td ><a class="btn btn-sm btn-info" href="{% url 'cities:edit_city' city.id %}" role="button">Edit city</a></td>
              </tr>
             {% endfor %}
             </tbody>
