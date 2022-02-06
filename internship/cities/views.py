@@ -67,6 +67,15 @@ def edit_country(request, country_id):
 
 
 @login_required()
+def delete_country(request, country_id):
+    if request.user.is_staff:
+        country = get_object_or_404(Country, pk=country_id)
+        country.delete()
+        return redirect('cities:country_list')
+    return redirect('cities:country_list')
+
+
+@login_required()
 def add_city(request, country):
     header = 'Add City'
     action = 'Add'
@@ -104,3 +113,12 @@ def edit_city(request, city_id):
         'city_id': city_id,
     }
     return render(request, 'new.html', context)
+
+
+@login_required()
+def delete_city(request, city_id):
+    if request.user.is_staff:
+        city = get_object_or_404(City, pk=city_id)
+        city.delete()
+        return redirect('cities:city_list', country=city.country)
+    return redirect('cities:city_list', country=city.country)
