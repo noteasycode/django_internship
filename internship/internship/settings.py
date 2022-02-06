@@ -32,14 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'tests.apps.TestsConfig',
-    'cities.apps.CitiesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tests.apps.TestsConfig',
+    'cities.apps.CitiesConfig',
+    'users.apps.UsersConfig',
     'sorl.thumbnail',
 ]
 
@@ -134,6 +135,15 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+LOGIN_URL = 'users:login'
+
+LOGIN_REDIRECT_URL = 'cities:index'
+
+LOGOUT_REDIRECT_URL = 'cities:index'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

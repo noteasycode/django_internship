@@ -10,11 +10,13 @@
 <body>
  <br>
     <div class="container">
+    {% if user.is_authenticated %}
     <div class="row">
         <div class="col-9">
-    <a class="btn btn-sm btn-info" href="{% url 'cities:add_country' %}" role="button">Add country</a>
+            <a class="btn btn-sm btn-info" href="{% url 'cities:add_country' %}" role="button">Add country</a>
         </div>
     </div>
+    {% endif %}
     <div class="row">
         <div class="col-9">
      {% if countries %}
@@ -26,8 +28,10 @@
                <th scope="col">Country</th>
                <th scope="col">Population</th>
                <th scope="col">Country code ISO 3166</th>
+               {% if user.is_authenticated %}
                <th scope="col">Actions</th>
-               </tr>
+               {% endif %}
+             </tr>
            </thead>
             <tbody >
              {% for country in countries %}
@@ -39,7 +43,9 @@
                   <td ><a class="nav-link" href="{% url 'cities:city_list' country.name %}">{{ country|upper }}</a></td>
                   <td >{{ country.population }}</td>
                   <td >{{ country.country_code }}</td>
+                  {% if user.is_authenticated %}
                   <td ><a class="btn btn-sm btn-info" href="{% url 'cities:edit_country' country.id %}" role="button">Edit country</a></td>
+                  {% endif %}
               </tr>
             {% endfor %}
             </tbody>

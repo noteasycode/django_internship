@@ -12,11 +12,13 @@
 <body>
  <br>
     <div class="container">
+    {% if request.user.is_authenticated %}
     <div class="row">
         <div class="col-9">
             <a class="btn btn-sm btn-info" href="{% url 'cities:add_city' country %}" role="button">Add City</a>
         </div>
     </div>
+    {% endif %}
     <div class="row">
     <div class="col-9">
      {% if cities %}
@@ -28,7 +30,9 @@
                <th scope="col">City</th>
                <th scope="col">Population</th>
                <th scope="col">With a McDonald's outlet</th>
+               {% if request.user.is_authenticated %}
                <th scope="col">Actions</th>
+               {% endif %}
                </tr>
            </thead>
             <tbody >
@@ -43,7 +47,9 @@
                   {% elif city.population < 1000000 %} <td style="color:#000080"> {{ city.population }} </td>
                   {% else %} <td style="color:#3CB371"> {{ city.population }} </td> {% endif %}
                   <td >{{ city.with_mcdonalds|add_image }}</td>
+                  {% if request.user.is_authenticated %}
                   <td ><a class="btn btn-sm btn-info" href="{% url 'cities:edit_city' city.id %}" role="button">Edit city</a></td>
+                  {% endif %}
              </tr>
             {% endfor %}
             </tbody>

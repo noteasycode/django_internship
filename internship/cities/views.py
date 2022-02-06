@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import (
     render, get_object_or_404, get_list_or_404, redirect
 )
@@ -27,6 +28,7 @@ def city_detail(request, pk):
     return render(request, 'city_detail.html', {'city': city})
 
 
+@login_required()
 def add_country(request):
     header = 'Add Country'
     action = 'Add'
@@ -42,12 +44,11 @@ def add_country(request):
     )
 
 
+@login_required()
 def edit_country(request, country_id):
     header = 'Edit'
     action = 'Save'
     country = get_object_or_404(Country, pk=country_id)
-    if request.user.is_anonymous:
-        return redirect('cities:country_list')
     form = CountryForm(
         request.POST or None,
         files=request.FILES or None,
@@ -65,6 +66,7 @@ def edit_country(request, country_id):
     return render(request, 'new.html', context)
 
 
+@login_required()
 def add_city(request, country):
     header = 'Add City'
     action = 'Add'
@@ -82,12 +84,11 @@ def add_city(request, country):
     )
 
 
+@login_required()
 def edit_city(request, city_id):
     header = 'Edit'
     action = 'Save'
     city = get_object_or_404(City, pk=city_id)
-    if request.user.is_anonymous:
-        return redirect('cities:city_list')
     form = CityForm(
         request.POST or None,
         files=request.FILES or None,
