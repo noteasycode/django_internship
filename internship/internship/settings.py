@@ -149,5 +149,5 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-PAGES_OBG_AMT = 10
+PAGES_OBG_AMT = 15
 
