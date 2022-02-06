@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.shortcuts import (
     render, get_object_or_404, get_list_or_404, redirect
 )
@@ -13,13 +15,19 @@ def index(request):
 
 def country_list(request):
     countries = get_list_or_404(Country)
-    return render(request, 'country_list.html', {'countries': countries})
+    paginator = Paginator(countries, settings.PAGES_OBG_AMT)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    return render(request, 'country_list.html', {'page': page})
 
 
 def city_list(request, country):
     country = get_object_or_404(Country, name=country)
     cities = country.cities.all()
-    context = {'cities': cities, 'country': country}
+    paginator = Paginator(cities, settings.PAGES_OBG_AMT)
+    page_number = request.GET.get('page')
+    page = paginator.get_page(page_number)
+    context = {'page': page, 'country': country}
     return render(request, 'city_list.html', context)
 
 
@@ -117,8 +125,8 @@ def edit_city(request, city_id):
 
 @login_required()
 def delete_city(request, city_id):
+    city = get_object_or_404(City, pk=city_id)
     if request.user.is_staff:
-        city = get_object_or_404(City, pk=city_id)
         city.delete()
         return redirect('cities:city_list', country=city.country)
     return redirect('cities:city_list', country=city.country)

@@ -14,14 +14,14 @@
     <div class="container">
     {% if request.user.is_authenticated %}
     <div class="row">
-        <div class="col-9">
-            <a class="btn btn-sm btn-info" href="{% url 'cities:add_city' country %}" role="button">Add City</a>
+        <div class="col-10">
+            <a class="btn btn-sm btn-primary" href="{% url 'cities:add_city' country %}" role="button">Add City</a>
         </div>
     </div>
     {% endif %}
     <div class="row">
     <div class="col-9">
-     {% if cities %}
+     {% if page %}
         <table class="table table-image display cell-border" id="city-table" >
            <thead>
              <tr>
@@ -39,9 +39,9 @@
                </tr>
            </thead>
             <tbody >
-             {% for city in cities %}
+             {% for city in page %}
               <tr>
-                 <th scope="row"> {{ forloop.counter }}</th>
+                 <th scope="row"> {{ forloop.counter0|add:page.start_index }}</th>
                   <td class="w-10">{% thumbnail city.emblem "50x25" crop="center" upscale=True as im %}
                             <img class="img-fluid img-thumbnail" src="{{ im.url }}">
                         {% endthumbnail %}</td>
@@ -51,7 +51,7 @@
                   {% else %} <td style="color:#3CB371"> {{ city.population }} </td> {% endif %}
                   <td >{{ city.with_mcdonalds|add_image }}</td>
                   {% if user.is_authenticated %}
-                  <td ><a class="btn btn-sm btn-info" href="{% url 'cities:edit_city' city.id %}" role="button">Edit city</a></td>
+                  <td ><a class="btn btn-sm btn-primary" href="{% url 'cities:edit_city' city.id %}" role="button">Edit city</a></td>
                   {% endif %}
                   {% if user.is_staff %}
                   <td ><a class="btn btn-sm btn-danger" href="{% url 'cities:delete_city' city.id %}" role="button">Delete city</a></td>
@@ -62,11 +62,17 @@
         </table>
     {% endif %}
     </div></div></div>
+
+{% include "includes/paginator.html" with items=page paginator=paginator %}
+
 {% block js %}
     <script type="text/javascript">
         $(document).ready(function() {
             $('#city-table').DataTable({
-               columnDefs: [
+                paging: false,
+                searching: false,
+                info: false,
+                columnDefs: [
                     {
                         targets: "_all",
                         className: 'dt-center'
