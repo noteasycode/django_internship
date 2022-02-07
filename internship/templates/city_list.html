@@ -10,17 +10,20 @@
 
 {% block content %}
 <body>
- <br>
-    <div class="container">
-    {% if request.user.is_authenticated %}
-    <div class="row">
-        <div class="col-10">
-            <a class="btn btn-sm btn-primary" href="{% url 'cities:add_city' country %}" role="button">Add City</a>
+<div class="container-fluid mt-3">
+	<div class="row">
+    <!--menu -->
+    <div class="col-lg-3 mx-auto">
+        <div class="list-group">
+            <a class="list-group-item active" href="{% url 'cities:add_city' country %}">Add City</a>
+            <a href="{% url 'cities:city_list' country %}" class="list-group-item list-group-item-action">All cities</a>
+            <a href="{% url 'cities:city_list' country %}?with_mcdonalds=True" class="list-group-item list-group-item-action">Cities with McDonald's</a>
+            <a href="{% url 'cities:city_list' country %}?with_mcdonalds=False" class="list-group-item list-group-item-action">Cities without McDonald's</a>
         </div>
     </div>
-    {% endif %}
-    <div class="row">
-    <div class="col-9">
+       <!--data-table -->
+    <div class="col-lg-9 mx-auto">
+    <div class="row mx-auto">
      {% if page %}
         <table class="table table-image display cell-border" id="city-table" >
            <thead>
@@ -61,6 +64,7 @@
             </tbody>
         </table>
     {% endif %}
+    </div>
     </div></div></div>
 
 {% include "includes/paginator.html" with items=page paginator=paginator %}

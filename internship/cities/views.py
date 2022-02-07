@@ -23,7 +23,11 @@ def country_list(request):
 
 def city_list(request, country):
     country = get_object_or_404(Country, name=country)
-    cities = country.cities.all()
+    mcdonalds_value = request.GET.get('with_mcdonalds')
+    if mcdonalds_value:
+        cities = country.cities.filter(with_mcdonalds=mcdonalds_value)
+    else:
+        cities = country.cities.all()
     paginator = Paginator(cities, settings.PAGES_OBG_AMT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
