@@ -15,7 +15,9 @@
     <!--menu -->
     <div class="col-lg-3 mx-auto">
         <div class="list-group">
+            {% if user.is_authenticated %}
             <a class="list-group-item active" href="{% url 'cities:add_city' country %}">Add City</a>
+            {% endif %}
             <a href="{% url 'cities:city_list' country %}" class="list-group-item list-group-item-action">All cities</a>
             <a href="{% url 'cities:city_list' country %}?with_mcdonalds=True" class="list-group-item list-group-item-action">Cities with McDonald's</a>
             <a href="{% url 'cities:city_list' country %}?with_mcdonalds=False" class="list-group-item list-group-item-action">Cities without McDonald's</a>
