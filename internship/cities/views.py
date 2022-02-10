@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import (
@@ -78,12 +79,10 @@ def edit_country(request, country_id):
     return render(request, 'new.html', context)
 
 
-@login_required()
+@staff_member_required()
 def delete_country(request, country_id):
-    if request.user.is_staff:
-        country = get_object_or_404(Country, pk=country_id)
-        country.delete()
-        return redirect('cities:country_list')
+    country = get_object_or_404(Country, pk=country_id)
+    country.delete()
     return redirect('cities:country_list')
 
 
@@ -127,10 +126,8 @@ def edit_city(request, city_id):
     return render(request, 'new.html', context)
 
 
-@login_required()
+@staff_member_required()
 def delete_city(request, city_id):
     city = get_object_or_404(City, pk=city_id)
-    if request.user.is_staff:
-        city.delete()
-        return redirect('cities:city_list', country=city.country)
+    city.delete()
     return redirect('cities:city_list', country=city.country)
